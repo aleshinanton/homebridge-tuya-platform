@@ -28,6 +28,7 @@ export default class SmartDehumidifier extends BaseAccessory {
       this.getSchema(...SCHEMA_CODE.ACTIVE)
     );
     this.configureCurrentState();
+    this.configureTargetState();
     configureCurrentRelativeHumidity(this, this.mainService(), this.getSchema(...SCHEMA_CODE.CURRENT_HUMIDITY));
   }
 
@@ -54,5 +55,15 @@ export default class SmartDehumidifier extends BaseAccessory {
         const status = this.getStatus(schema.code);
         return (status?.value as boolean) ? DEHUMIDIFYING : INACTIVE;
       });
+  }
+
+  configureTargetState() {
+    const { DEHUMIDIFIER } = this.Characteristic.TargetHumidifierDehumidifierState;
+    const validValues = [DEHUMIDIFIER];
+
+    this.mainService().getCharacteristic(this.Characteristic.TargetHumidifierDehumidifierState)
+      .onGet(() => {
+        return DEHUMIDIFIER;
+      }).setProps({ validValues });
   }
 }
