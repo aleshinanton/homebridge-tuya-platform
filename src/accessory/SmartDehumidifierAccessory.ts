@@ -1,6 +1,7 @@
 import BaseAccessory from "./BaseAccessory";
 import { configureActive } from "./characteristic/Active";
 import { configureCurrentRelativeHumidity } from "./characteristic/CurrentRelativeHumidity";
+import { configureSmartRelativeHumidityDehumidifierThreshold } from './characteristic/SmartRelativeHumidityDehumidifierThreshold';
 
 const SCHEMA_CODE = {
   ACTIVE: ["Power"],
@@ -9,7 +10,7 @@ const SCHEMA_CODE = {
   WINDSPEED: ["windspeed"],
   LOCK: ["lock"],
   COUNTDOWN: ["countdown"],
-  HUMIDITY: ["humidity"],
+  TARGET_HUMIDITY: ["humidity"],
   CURRENT_HUMIDITY: ["get_hum"],
   TIME: ["time"],
   SLEEP: ["SLEEP"],
@@ -30,6 +31,7 @@ export default class SmartDehumidifier extends BaseAccessory {
     this.configureCurrentState();
     this.configureTargetState();
     configureCurrentRelativeHumidity(this, this.mainService(), this.getSchema(...SCHEMA_CODE.CURRENT_HUMIDITY));
+    configureSmartRelativeHumidityDehumidifierThreshold(this, this.mainService(), this.getSchema(...SCHEMA_CODE.TARGET_HUMIDITY));
   }
 
   mainService() {
