@@ -40,6 +40,7 @@ import IRAirConditionerAccessory from './IRAirConditionerAccessory';
 import SecuritySystemAccessory from './SecuritySystemAccessory';
 import VibrationSensorAccessory from './VibrationSensorAccessory';
 import DoorbellAccessory from './DoorbellAccessory';
+import SmartDehumidifier from './SmartDehumidifierAccessory';
 
 
 export default class AccessoryFactory {
@@ -128,6 +129,9 @@ export default class AccessoryFactory {
         break;
       case 'cs':
         handler = new DehumidifierAccessory(platform, accessory);
+        break;
+      case 'scs':
+        handler = new SmartDehumidifier(platform, accessory);
         break;
       case 'fs':
       case 'fsd':
