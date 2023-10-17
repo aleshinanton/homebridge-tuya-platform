@@ -9,7 +9,7 @@ export function configureSmartRelativeHumidityDehumidifierThreshold(accessory: B
   }
 
   const property = schema.property as TuyaDeviceSchemaIntegerProperty;
-  const multiple = Math.pow(10, property.scale);
+  const multiple = Math.pow(10, property ? property.scale : 0);
   const props = {
     minValue: 30,
     maxValue: 80,
